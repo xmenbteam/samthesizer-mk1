@@ -1,32 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { notes, scaleType } from "./Data";
 
-const Controls = () => {
-  const [freq, setFreq] = useState(null);
-  const [note, setNote] = useState("");
-  const [scaleFreq, setScaleFreq] = useState([]);
-  const [currentStepIndex, setCurrentStepIndex] = useState();
+const Controls = ({ waveform }) => {
+  const [freq, setFreq] = useState(440);
+  const [scaleFreqArr, setScaleFreqArr] = useState([]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioContextRef = useRef();
 
   const noteArray = Object.entries(notes);
   const freqVals = Object.values(notes);
 
   useEffect(() => {
-    setScaleFreq([...freqVals]);
+    setScaleFreqArr([...freqVals]);
+  }, []);
+
+  useEffect(() => {
+    let audioContext = new AudioContext();
+    let osc = audioContext.createOscillator();
+    osc.type = waveform;
+    osc.frequency.value = freq;
+
+    osc.connect(audioContext.destination);
+    osc.start(audioContext.currentTime);
+
+    audioContextRef.current = audioContext;
+    audioContext.suspend();
+
+    return () => osc.disconnect(audioContext.destination);
   }, []);
 
   const onSlide = (e) => {
     const note = e.target.value;
-
     setFreq(note);
-    setCurrentStepIndex();
+    console.log(waveform);
+  };
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      audioContextRef.current.suspend();
+    } else {
+      audioContextRef.current.resume();
+    }
+    setIsPlaying((play) => !play);
   };
 
   return (
     <div>
       <div className="controls">
         <div className="control">
-          <span>Click to Start Oscillator </span>
-          <input id="on-off" type="button" value="start" />
+          <span>
+            {isPlaying
+              ? "Click to Stop Oscillator "
+              : "Click to Start Oscillator "}
+          </span>
+          <input
+            id="on-off"
+            type="button"
+            value={isPlaying ? "stop" : "start"}
+            onClick={() => togglePlay()}
+          />
         </div>
         <div className="control">
           <span>Select Root Note: </span>
@@ -56,7 +88,11 @@ const Controls = () => {
             max={noteArray[noteArray.length - 1][1]}
             onInput={(e) => onSlide(e)}
           />
-          <p>{freq}</p>
+          <p>
+            {isPlaying
+              ? `The Oscillator is playing at ${freq}Hz`
+              : "The Oscillator is Stopped"}
+          </p>
         </div>
       </div>
 
