@@ -3,15 +3,15 @@ import { notes } from "./Data";
 import { Context } from "../App";
 
 const Controls = () => {
-  const { state } = useContext(Context);
-  const { waveform } = state;
+  const { state, dispatch } = useContext(Context);
+  const { waveform, isPlaying } = state;
 
   console.log(waveform, "waveform");
 
   const [freq, setFreq] = useState(440);
   // eslint-disable-next-line
   const [scaleFreqArr, setScaleFreqArr] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(false);
+
   const audioContextRef = useRef();
 
   // const noteArray = Object.entries(notes);
@@ -41,7 +41,7 @@ const Controls = () => {
   const onSlide = (e) => {
     const note = e.target.value;
     setFreq(note);
-    setIsPlaying((play) => !play);
+    dispatch(isPlaying ? { type: "stop" } : { type: "start" });
   };
 
   const togglePlay = () => {
@@ -50,18 +50,13 @@ const Controls = () => {
     } else {
       audioContextRef.current.resume();
     }
-    setIsPlaying((play) => !play);
+    dispatch(isPlaying ? { type: "stop" } : { type: "start" });
   };
 
   return (
     <div>
       <div className="controls">
         <div className="control">
-          <span>
-            {isPlaying
-              ? "Click to Stop Oscillator "
-              : "Click to Start Oscillator "}
-          </span>
           <input
             id="on-off"
             type="button"
@@ -86,7 +81,7 @@ const Controls = () => {
           </select>
         </div> */}
         <div className="control">
-          <p>Use slider to modify frequency</p>
+          <p className="descriptor">Use slider to modify frequency</p>
           <input
             name="freqSlide"
             type="range"
@@ -96,7 +91,7 @@ const Controls = () => {
             max="1000"
             onChange={(e) => onSlide(e)}
           />
-          <p>
+          <p className="descriptor">
             {isPlaying
               ? `The Oscillator is playing at ${freq}Hz`
               : `The Oscillator will play at ${freq}Hz`}

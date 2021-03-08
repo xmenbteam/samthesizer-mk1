@@ -9,7 +9,7 @@ const Waveform = () => {
 
   return (
     <div className="waveform-container">
-      <h2>Choose Your Waveform:</h2>
+      <h2 className="waveformChoose">Choose Your Waveform:</h2>
       <ul id="oscillator-list">
         {waveforms.map((wave, id) => {
           const LCWave = wave.toLowerCase();

@@ -4,8 +4,6 @@ import Controls from "./Components/Controls";
 import Waveform from "./Components/Waveform";
 
 const redFunc = (state, action) => {
-  console.log(action, "ACTION");
-
   switch (action.type) {
     case "sawtooth": {
       return {
@@ -31,6 +29,18 @@ const redFunc = (state, action) => {
         waveform: "sine",
       };
     }
+    case "play": {
+      return {
+        ...state,
+        isPlaying: true,
+      };
+    }
+    case "stop": {
+      return {
+        ...state,
+        isPlaying: false,
+      };
+    }
     default: {
       return state;
     }
@@ -39,6 +49,7 @@ const redFunc = (state, action) => {
 
 const initialState = {
   waveform: "sine",
+  isPlaying: false,
 };
 
 export const Context = React.createContext();
@@ -49,8 +60,7 @@ function App() {
   return (
     <div className="App">
       <Context.Provider value={{ state, dispatch }}>
-        <h1>samthesizer mk1</h1>
-        <hr />
+        <h1 className="samtitle">samthesizer mk1</h1>
         <Controls />
         <Waveform />
       </Context.Provider>
