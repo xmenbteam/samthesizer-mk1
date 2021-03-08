@@ -1,17 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
-import { notes, scaleType } from "./Data";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { notes } from "./Data";
+import { Context } from "../App";
 
-const Controls = ({ waveform }) => {
+const Controls = () => {
+  const { state } = useContext(Context);
+  const { waveform } = state;
+
+  console.log(waveform, "waveform");
+
   const [freq, setFreq] = useState(440);
+  // eslint-disable-next-line
   const [scaleFreqArr, setScaleFreqArr] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioContextRef = useRef();
 
-  const noteArray = Object.entries(notes);
+  // const noteArray = Object.entries(notes);
   const freqVals = Object.values(notes);
 
   useEffect(() => {
     setScaleFreqArr([...freqVals]);
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -27,12 +35,13 @@ const Controls = ({ waveform }) => {
     audioContext.suspend();
 
     return () => osc.disconnect(audioContext.destination);
-  }, []);
+    // eslint-disable-next-line
+  }, [freq, waveform]);
 
   const onSlide = (e) => {
     const note = e.target.value;
     setFreq(note);
-    console.log(waveform);
+    setIsPlaying((play) => !play);
   };
 
   const togglePlay = () => {
@@ -60,7 +69,7 @@ const Controls = ({ waveform }) => {
             onClick={() => togglePlay()}
           />
         </div>
-        <div className="control">
+        {/* <div className="control">
           <span>Select Root Note: </span>
           <select name="notes">
             {noteArray.map((note, id) => {
@@ -75,7 +84,7 @@ const Controls = ({ waveform }) => {
               return <option key={id}>{scale}</option>;
             })}
           </select>
-        </div>
+        </div> */}
         <div className="control">
           <p>Use slider to modify frequency</p>
           <input
@@ -83,15 +92,14 @@ const Controls = ({ waveform }) => {
             type="range"
             className="slider"
             id="freq-slide"
-            list={freqVals}
-            min={noteArray[0][1]}
-            max={noteArray[noteArray.length - 1][1]}
-            onInput={(e) => onSlide(e)}
+            min="20"
+            max="1000"
+            onChange={(e) => onSlide(e)}
           />
           <p>
             {isPlaying
               ? `The Oscillator is playing at ${freq}Hz`
-              : "The Oscillator is Stopped"}
+              : `The Oscillator will play at ${freq}Hz`}
           </p>
         </div>
       </div>

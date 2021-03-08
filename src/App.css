@@ -29,6 +29,17 @@ ul {
   margin: 1vmin;
 }
 
+.selectedWaveform {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding-left: 0;
+  border: 5px solid red;
+  width: 15vmin;
+  padding: 1vmin;
+  margin: 1vmin;
+}
+
 .controls {
   display: flex;
   flex-direction: column;
