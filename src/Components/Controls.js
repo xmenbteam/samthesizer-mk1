@@ -1,26 +1,12 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { notes } from "./Data";
+import React, { useEffect, useRef, useContext } from "react";
+
 import { Context } from "../App";
 
 const Controls = () => {
   const { state, dispatch } = useContext(Context);
-  const { waveform, isPlaying } = state;
-
-  console.log(isPlaying, "isplaying");
-
-  const [freq, setFreq] = useState(440);
-  // eslint-disable-next-line
-  const [scaleFreqArr, setScaleFreqArr] = useState([]);
+  const { waveform, isPlaying, freq } = state;
 
   const audioContextRef = useRef();
-
-  // const noteArray = Object.entries(notes);
-  const freqVals = Object.values(notes);
-
-  useEffect(() => {
-    setScaleFreqArr([...freqVals]);
-    // eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     let audioContext = new AudioContext();
@@ -41,18 +27,16 @@ const Controls = () => {
 
   const onSlide = (e) => {
     const note = e.target.value;
-    setFreq(note);
-    dispatch(isPlaying ? { type: "stop" } : { type: "start" });
+    dispatch({ freq: note });
   };
 
   const togglePlay = () => {
     if (isPlaying) {
       audioContextRef.current.suspend();
-      dispatch({ type: "stop" });
     } else {
       audioContextRef.current.resume();
-      dispatch({ type: "start" });
     }
+    dispatch(isPlaying ? { type: "stop" } : { type: "start" });
   };
 
   return (

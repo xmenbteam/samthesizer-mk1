@@ -5,6 +5,18 @@ import Waveform from "./Components/Waveform";
 
 const redFunc = (state, action) => {
   switch (action.type) {
+    case "start": {
+      return {
+        ...state,
+        isPlaying: true,
+      };
+    }
+    case "stop": {
+      return {
+        ...state,
+        isPlaying: false,
+      };
+    }
     case "sawtooth": {
       return {
         ...state,
@@ -29,16 +41,10 @@ const redFunc = (state, action) => {
         waveform: "sine",
       };
     }
-    case "play": {
+    case "freq": {
       return {
         ...state,
-        isPlaying: true,
-      };
-    }
-    case "stop": {
-      return {
-        ...state,
-        isPlaying: false,
+        freq: action.value,
       };
     }
     default: {
@@ -50,6 +56,7 @@ const redFunc = (state, action) => {
 const initialState = {
   waveform: "sine",
   isPlaying: false,
+  freq: 440,
 };
 
 export const Context = React.createContext();

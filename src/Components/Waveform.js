@@ -4,8 +4,8 @@ import { Context } from "../App";
 
 const Waveform = () => {
   const { state, dispatch } = useContext(Context);
-  const stateWave = state.waveform;
-  console.log(stateWave, "statewave");
+
+  const { waveform, isPlaying } = state;
 
   return (
     <div className="waveform-container">
@@ -16,7 +16,7 @@ const Waveform = () => {
           return (
             <li
               key={id}
-              className={LCWave === stateWave ? "selectedWaveform" : "waveform"}
+              className={LCWave === waveform ? "selectedWaveform" : "waveform"}
               onClick={(wave) => {
                 const disWave = wave.target.innerText.toLowerCase();
                 dispatch({ type: disWave });
