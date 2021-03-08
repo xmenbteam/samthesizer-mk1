@@ -11,10 +11,10 @@
 .samtitle {
   background-color: #690500;
   color: #bb6b00;
-  padding: 2vmin 3vmin;
-  border-radius: 5vmin;
+  padding: 20px 30px;
+  border-radius: 100px;
   font-family: "Fascinate", cursive;
-  font-size: 5vmin;
+  font-size: 10vmin;
 }
 
 .waveform-container {
@@ -36,14 +36,14 @@
 }
 
 #on-off {
-  height: 10vmin;
-  width: 10vmin;
-  padding: 1vmin;
+  height: 200px;
+  width: 200px;
+  padding: 50px;
   border-radius: 50%;
   box-shadow: 5px 10px #210f04;
   background-color: #bb6b00;
   font-family: "Lobster", cursive;
-  font-size: 2.8vmin;
+  font-size: 50px;
 }
 
 ul {
@@ -51,17 +51,19 @@ ul {
 }
 
 .descriptor {
-  font-family: "Lobster", cursive;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: bold;
 }
 
 .waveform {
   display: flex;
   justify-content: center;
   list-style: none;
-  border: 5px solid black;
+  border: 5px solid #210f04;
   width: 15vmin;
   padding: 1vmin;
   margin: 2vmin;
+  color: #210f04;
   box-shadow: 5px 10px #210f04;
   font-family: "Lobster", cursive;
   font-size: 1.7vmin;
@@ -71,11 +73,12 @@ ul {
   display: flex;
   justify-content: center;
   list-style: none;
-  border: 5px solid red;
+  border: 5px solid rgb(125, 11, 11);
   width: 15vmin;
   padding: 1vmin;
   margin: 1vmin;
-  box-shadow: 5px 10px red;
+  color: #210f04;
+  box-shadow: 5px 10px rgb(125, 11, 11);
   font-family: "Lobster", cursive;
   font-size: 1.7vmin;
 }
@@ -98,7 +101,9 @@ ul {
   align-items: center;
   padding: 6vmin;
   background-color: #934b00;
+  color: #210f04;
   border-radius: 50px;
+  width: 280px;
 }
 .control {
   font-size: larger;
@@ -121,7 +126,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   height: 8.4px;
   cursor: pointer;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: #3071a9;
+  background: #452103;
   border-radius: 1.3px;
   border: 0.2px solid #010101;
 }

@@ -1,18 +1,19 @@
-export const waveforms = ["Sawtooth", "Square", "Triangle", "Sine"];
-export const notes = {
-  C: 261.63,
-  "C#/Db": 277.18,
-  D: 293.66,
-  "D#/Eb": 311.13,
-  E: 329.63,
-  F: 349.23,
-  "F#/Gb": 369.99,
-  G: 392,
-  "G#/Ab": 415.3,
-  A: 440,
-  "A#/Bb": 466.16,
-  B: 493.88,
-};
+export const waveforms = ["Sine", "Sawtooth", "Square", "Triangle"];
+export const notes = [
+  { name: "c", frequency: 261.63 },
+  { name: "C#", frequency: 277.18 },
+  { name: "D", frequency: 293.66 },
+  { name: "D#", frequency: 311.13 },
+  { name: "E", frequency: 329.63 },
+  { name: "F", frequency: 349.23 },
+  { name: "F#", frequency: 369.99 },
+  { name: "G", frequency: 392.0 },
+  { name: "G#", frequency: 415.3 },
+  { name: "A", frequency: 440.0 },
+  { name: "A#", frequency: 466.16 },
+  { name: "B", frequency: 493.88 },
+  { name: "C", frequency: 523.25 },
+];
 export const scaleType = [
   "Chromatic",
   "Major",

@@ -6,7 +6,7 @@ const Controls = () => {
   const { state, dispatch } = useContext(Context);
   const { waveform, isPlaying } = state;
 
-  console.log(waveform, "waveform");
+  console.log(isPlaying, "isplaying");
 
   const [freq, setFreq] = useState(440);
   // eslint-disable-next-line
@@ -30,6 +30,7 @@ const Controls = () => {
 
     osc.connect(audioContext.destination);
     osc.start(audioContext.currentTime);
+    osc.stop(audioContext.currentTime + 3);
 
     audioContextRef.current = audioContext;
     audioContext.suspend();
@@ -47,10 +48,11 @@ const Controls = () => {
   const togglePlay = () => {
     if (isPlaying) {
       audioContextRef.current.suspend();
+      dispatch({ type: "stop" });
     } else {
       audioContextRef.current.resume();
+      dispatch({ type: "start" });
     }
-    dispatch(isPlaying ? { type: "stop" } : { type: "start" });
   };
 
   return (
@@ -64,22 +66,6 @@ const Controls = () => {
             onClick={() => togglePlay()}
           />
         </div>
-        {/* <div className="control">
-          <span>Select Root Note: </span>
-          <select name="notes">
-            {noteArray.map((note, id) => {
-              return <option key={id}>{note[0]}</option>;
-            })}
-          </select>
-        </div>
-        <div className="control">
-          <span>Select Scale Type: </span>
-          <select name="scaleType">
-            {scaleType.map((scale, id) => {
-              return <option key={id}>{scale}</option>;
-            })}
-          </select>
-        </div> */}
         <div className="control">
           <p className="descriptor">Use slider to modify frequency</p>
           <input
