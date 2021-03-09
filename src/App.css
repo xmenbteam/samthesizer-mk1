@@ -98,6 +98,7 @@ ul {
   padding: 20px;
   border-radius: 50px;
   box-shadow: 5px 10px #210f04;
+  margin: 0px;
 }
 
 .controls {
@@ -124,8 +125,8 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 3px;
   background: #ffffff;
   cursor: pointer;
-  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+  margin-top: -14px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
