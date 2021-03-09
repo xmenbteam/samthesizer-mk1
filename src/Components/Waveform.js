@@ -20,6 +20,7 @@ const Waveform = () => {
               onClick={(wave) => {
                 const disWave = wave.target.innerText.toLowerCase();
                 dispatch({ type: disWave });
+                dispatch(isPlaying && { type: "stop" });
               }}
             >
               {wave}

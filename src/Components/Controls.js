@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useContext } from "react";
-
 import { Context } from "../App";
 
 const Controls = () => {
@@ -27,7 +26,8 @@ const Controls = () => {
 
   const onSlide = (e) => {
     const note = e.target.value;
-    dispatch({ freq: note });
+    dispatch({ type: "freq", value: note });
+    dispatch(isPlaying && { type: "stop" });
   };
 
   const togglePlay = () => {
